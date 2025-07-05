@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Women Safety Analytics</title>
+</head>
+<body>
+    <h2>Take a Photo (Mobile Camera Supported)</h2>
+    <input type="file" accept="image/*" capture="environment" id="cameraInput">
+    <button onclick="uploadImage()">Upload & Detect</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function uploadImage() {
+            const fileInput = document.getElementById('cameraInput');
+            if (fileInput.files.length === 0) {
+                alert("Please select or take a photo first.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            const response = await fetch('/detect', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerHTML = `
+                <h3>Result:</h3>
+            Men: ${result.men} <br>
+            Women: ${result.women} <br>
+            <img src="${result.result_image_url}" width="300">
+            `;
+        }
+    </script>
+</body>
+</html>
