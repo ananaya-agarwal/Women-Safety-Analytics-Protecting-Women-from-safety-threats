@@ -41,4 +41,3 @@ In such scenarios, the system **automatically triggers an SOS pop-up** on the us
 
 ---
 
-## 📂 Project Structure *(Example)*
